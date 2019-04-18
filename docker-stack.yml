@@ -47,6 +47,7 @@ services:
         target: /usr/share/kibana/config/kibana.yml
     networks:
       - elk
+      - traefik
     deploy:
       mode: replicated
       replicas: 1
