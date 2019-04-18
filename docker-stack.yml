@@ -78,7 +78,7 @@ services:
       - "--docker.watch"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./acme.json:/etc/traefik/acme/acme.json
+      - /opt/acme/acme.json:/etc/traefik/acme/acme.json
     networks:
       - traefik
     ports:
@@ -123,3 +123,4 @@ networks:
 
 volumes:
   elastic-data:
+
