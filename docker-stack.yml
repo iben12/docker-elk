@@ -10,6 +10,8 @@ services:
     configs:
       - source: elastic_config
         target: /usr/share/elasticsearch/config/elasticsearch.yml
+    volumes:
+    - elastic-data:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
@@ -18,23 +20,23 @@ services:
       mode: replicated
       replicas: 1
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash-oss:6.6.1
-    ports:
-      - "5000:5201"
-      - "9600:9600"
-    configs:
-      - source: logstash_config
-        target: /usr/share/logstash/config/logstash.yml
-      - source: logstash_pipeline
-        target: /usr/share/logstash/pipeline/logstash.conf
-    environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    networks:
-      - elk
-    deploy:
-      mode: replicated
-      replicas: 1
+  # logstash:
+  #   image: docker.elastic.co/logstash/logstash-oss:6.6.1
+  #   ports:
+  #     - "5000:5201"
+  #     - "9600:9600"
+  #   configs:
+  #     - source: logstash_config
+  #       target: /usr/share/logstash/config/logstash.yml
+  #     - source: logstash_pipeline
+  #       target: /usr/share/logstash/pipeline/logstash.conf
+  #   environment:
+  #     LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+  #   networks:
+  #     - elk
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
 
   kibana:
     image: docker.elastic.co/kibana/kibana-oss:6.6.1
@@ -63,3 +65,6 @@ configs:
 networks:
   elk:
     driver: overlay
+
+volumes:
+  elastic-data:
