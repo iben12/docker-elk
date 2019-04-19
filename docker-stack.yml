@@ -63,7 +63,7 @@ services:
       - source: elastalert_config_json
         target: /opt/elastalert-server/config/config.json
 
-  volumes:
+    volumes:
       - elastalert-rules:/opt/elastalert/rules
     networks:
       - elk
