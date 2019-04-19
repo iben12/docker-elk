@@ -39,7 +39,7 @@ services:
   #     replicas: 1
 
   kibana:
-    image: docker.elastic.co/kibana/kibana-oss:6.6.1
+    image: iben12/kibana:6.6.1
     configs:
       - source: kibana_config
         target: /usr/share/kibana/config/kibana.yml
