@@ -59,7 +59,7 @@ services:
     image: bitsensor/elastalert:latest
     configs:
       - source: elastalert_config
-        tagrget: /opt/elastalert/config.yaml
+        target: /opt/elastalert/config.yaml
       - source: elastalert_config_json
         target: /opt/elastalert-server/config/config.json
       # - ./elastalert/rules:/opt/elastalert/rules
