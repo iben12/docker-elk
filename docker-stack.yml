@@ -60,6 +60,8 @@ services:
     configs:
       - source: elastalert_config
         target: /opt/elastalert/config.yaml
+      - source: elastalert_test_config
+        target: /opt/elastalert/config-test.yaml
       - source: elastalert_config_json
         target: /opt/elastalert-server/config/config.json
 
@@ -132,7 +134,7 @@ configs:
   elastalert_config:
     file: ./elastalert/config/elastalert.yaml
   elastalert_test_config:
-    file: ./elastalert/config/elastalert-test.yaml
+    file: ./elastalert/config/elastalert.yaml
   elastalert_config_json:
     file: ./elastalert/config/config.json
 
