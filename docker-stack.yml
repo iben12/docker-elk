@@ -53,6 +53,7 @@ services:
         - "traefik.enable=true"
         - "traefik.docker.network=elk"
         - "traefik.port=5601"
+        - "traefik.frontend.auth.basic=${KIBANA_USER}"
         - "traefik.frontend.rule=Host:kibana.elk.skizoidglam.net"
 
   elastalert:
