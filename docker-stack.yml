@@ -62,8 +62,9 @@ services:
         target: /opt/elastalert/config.yaml
       - source: elastalert_config_json
         target: /opt/elastalert-server/config/config.json
-      # - ./elastalert/rules:/opt/elastalert/rules
-      # - ./elastalert/rule_templates:/opt/elastalert/rule_templates
+
+  volumes:
+      - elastalert-rules:/opt/elastalert/rules
     networks:
       - elk
     deploy:
@@ -143,4 +144,5 @@ networks:
 
 volumes:
   elastic-data:
+  elastalert-rules:
 
