@@ -55,6 +55,20 @@ services:
         - "traefik.port=5601"
         - "traefik.frontend.rule=Host:kibana.elk.skizoidglam.net"
 
+  elastalert:
+    image: bitsensor/elastalert:latest
+    volumes:
+      - ./elastalert/config/elastalert.yaml:/opt/elastalert/config.yaml
+      - ./elastalert/config/elastalert-test.yaml:/opt/elastalert/config-test.yaml
+      - ./elastalert/config/config.json:/opt/elastalert-server/config/config.json
+      - ./elastalert/rules:/opt/elastalert/rules
+      - ./elastalert/rule_templates:/opt/elastalert/rule_templates
+    networks:
+      - elk
+    deploy:
+      mode: replicated
+      replicas: 1
+
   traefik:
     image: traefik:latest
     command:
