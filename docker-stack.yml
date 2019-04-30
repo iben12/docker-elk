@@ -43,7 +43,8 @@ services:
   curator:
     image: bobrik/curator
     command:
-      - "--config /opt/curator_config.yml"
+      - "--config"
+      - "/opt/curator_config.yml"
       - "/opt/curator_action.yml"
     configs:
       - source: curator_config
@@ -52,6 +53,14 @@ services:
         target: /opt/curator_action.yml
     networks:
       - elk
+    deploy:
+      replicas: 0
+      restart_policy:
+        condition: none
+      labels:
+        - "swarm.cronjob.enable=true"
+        - "swarm.cronjob.schedule=1/2 * * * * *"
+        - "swarm.cronjob.skip-running=false"
 
   kibana:
     image: iben12/kibana:6.6.1
@@ -137,6 +146,19 @@ services:
         - "traefik.enable=true"
         - "traefik.port=8080"
         - "traefik.frontend.rule=Host:traefik.elk.skizoidglam.net"
+
+  cronjob:
+    image: crazymax/swarm-cronjob
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - "TZ=Europe/Budapest"
+      - "LOG_LEVEL=info"
+      - "LOG_JSON=false"
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
 
 configs:
   elastic_config:
