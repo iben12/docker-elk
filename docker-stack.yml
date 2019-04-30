@@ -41,6 +41,18 @@ services:
       mode: replicated
       replicas: 1
 
+  curator:
+    image: bobrik/curator
+    command:
+      - "curator"
+      - "--config /opt/curator_config.yml"
+      - "/opt/curator_action.yml"
+    configs:
+      - source: curator_config
+        target: /opt/curator_config.yml
+      - source: curator_action
+        target: /opt/curator_action.yml
+
   kibana:
     image: iben12/kibana:6.6.1
     configs:
@@ -141,6 +153,10 @@ configs:
     file: ./elastalert/config/elastalert.yaml
   elastalert_config_json:
     file: ./elastalert/config/config.json
+  curator_config:
+    file: ./curator/config.yml
+  curator_action:
+    file: ./curator/action.yml
 
 networks:
   elk:
