@@ -1,0 +1,29 @@
+name: Inkedsoul album fetch
+
+index: swarm
+
+timestamp_field: "@timestamp"
+
+type: frequency
+
+num_events: 1
+
+timeframe:
+  minutes: 5
+
+filter:
+  - query:
+      query_string:
+        query: 'labels.com_docker_swarm_service_name:"inkedsoul_app" AND message:"album-fetcher"'
+
+alert:
+  - slack
+
+slack_webhook_url: "https://hooks.slack.com/services/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"
+slack_msg_color: "good"
+
+
+alert_subject: ":recycle: Albums fetched"
+
+alert_text_type: alert_text_only
+alert_text: 'Albums fetched from Facebook.'
