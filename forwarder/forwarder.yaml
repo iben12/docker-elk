@@ -1,0 +1,45 @@
+version: "3.5"
+
+services:
+  forwarder:
+    image: 'sematext/logagent:latest'
+    environment:
+      - LOGS_TOKEN=swarm
+      - LOGS_RECEIVER_URL="http://elk.skizoidglam.net:9200"
+      - EVENTS_RECEIVER_URL="http://elk.skizoidglam.net:9200"
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+  beat:
+    image: iben12/filebeats
+    command: filebeat -e -strict.perms=false -E output.elasticsearch.hosts=["elk.skizoidglam.net:9200"]
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    configs:
+      - source: filebeats
+        target: /usr/share/filebeat/filebeat.yml
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+
+  logspout:
+    image: bekt/logspout-logstash
+    restart: on-failure
+    environment:
+      ROUTE_URIS: logstash://logstash:5000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+configs:
+  filebeats:
+    external: true
+    name: filebeats_v0.5
