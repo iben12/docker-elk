@@ -59,7 +59,7 @@ services:
         condition: none
       labels:
         - "swarm.cronjob.enable=true"
-        - "swarm.cronjob.schedule=1/2 * * * * *"
+        - "swarm.cronjob.schedule=0 5 1 * * *"
         - "swarm.cronjob.skip-running=false"
 
   kibana:
