@@ -35,7 +35,7 @@ services:
     image: bekt/logspout-logstash
     restart: on-failure
     environment:
-      ROUTE_URIS: logstash://logstash:5000
+      ROUTE_URIS: logstash://elk.skizoidglam.net:5000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

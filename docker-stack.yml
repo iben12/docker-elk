@@ -23,7 +23,10 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash-oss:6.6.1
     ports:
-      - "5000:5201"
+      - target: 5201
+        published: 5000
+        protocol: udp
+        mode: host
       - "9600:9600"
     configs:
       - source: logstash_config
