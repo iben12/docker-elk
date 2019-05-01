@@ -47,6 +47,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/hostname:/etc/host_hostname:ro
+    networks:
+      - elk
     deploy:
       mode: global
       restart_policy:
