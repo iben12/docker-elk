@@ -40,6 +40,19 @@ services:
       mode: replicated
       replicas: 1
 
+  logspout:
+    image: bekt/logspout-logstash
+    restart: on-failure
+    environment:
+      ROUTE_URIS: logstash://logstash:5000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/hostname:/etc/host_hostname:ro
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+
   curator:
     image: bobrik/curator
     command:
