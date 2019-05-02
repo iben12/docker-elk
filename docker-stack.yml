@@ -113,29 +113,6 @@ services:
       mode: replicated
       replicas: 1
 
-  metricbeat:
-    image: docker.elastic.co/beats/metricbeat-oss:7.0.0
-    command:
-      - "metricbeat"
-      - "-e"
-      - "-E"
-      - "output.elasticsearch.hosts=[\"elasticsearch:9200\"]"
-    networks:
-      - elk
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "/sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro"
-      - "/proc:/hostfs/proc:ro"
-      - "/:/hostfs:ro"
-    configs:
-      - source: metricbeat_config
-        target: /usr/share/metricbeat/metricbeat.yml
-    deploy:
-      mode: replicated
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-
   traefik:
     image: traefik:latest
     command:
@@ -217,8 +194,6 @@ configs:
     file: ./curator/config.yml
   curator_action:
     file: ./curator/action.yml
-  metricbeat_config:
-    file: ./metricbeat/config.yml
 
 networks:
   elk:
