@@ -169,7 +169,7 @@ services:
     environment:
       - "TZ=Europe/Budapest"
       - "LOG_LEVEL=info"
-      - "LOG_JSON=false"
+      - "LOG_JSON=true"
     deploy:
       placement:
         constraints:
