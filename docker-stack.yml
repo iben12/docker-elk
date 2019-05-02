@@ -113,6 +113,22 @@ services:
       mode: replicated
       replicas: 1
 
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat-oss:7.0.0
+    command:
+      - "setup"
+      - "-E"
+      - "setup.kibana.host=kibana:5601"
+      - "-E"
+      - "output.elasticsearch.hosts=[\"elasticsearch:9200\"]"
+    networks:
+      - elk
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
   traefik:
     image: traefik:latest
     command:
