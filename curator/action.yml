@@ -2,7 +2,7 @@ actions:
   1:
     action: delete_indices
     description: >-
-      Delete indices older than X days (based on index name), for logstash-
+      Delete indices older than ${DAYS_TO_KEEP} days, for logstash- and metricbeat-
       prefixed indices. Ignore the error if the filter does not result in an
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
@@ -17,4 +17,4 @@ actions:
       direction: older
       timestring: '%Y.%m.%d'
       unit: days
-      unit_count: 3
+      unit_count: ${DAYS_TO_KEEP}

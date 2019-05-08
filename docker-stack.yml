@@ -66,6 +66,8 @@ services:
         target: /opt/curator_config.yml
       - source: curator_action
         target: /opt/curator_action.yml
+    environment:
+      - "DAYS_TO_KEEP=5"
     networks:
       - elk
     deploy:
