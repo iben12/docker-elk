@@ -179,29 +179,29 @@ services:
 
     version: '3.2'
 
-sematext:
-  image: 'sematext/sematext-agent-docker:latest'
-  environment:
-    - LOGSENE_TOKEN=$LOGSENE_TOKEN
-    - SPM_TOKEN=$SPM_TOKEN
-    - SPM_RECEIVER_URL=https://spm-receiver.eu.sematext.com/receiver/v1
-    - LOGSENE_RECEIVER_URL=https://logsene-receiver.eu.sematext.com
-    - EVENTS_RECEIVER_URL=https://event-receiver.eu.sematext.com
-    - affinity:container!=*sematext-agent*
-  cap_add:
-    - SYS_ADMIN
-  restart: always
-  deploy:
-    mode: global
-    placement:
-      constraints: [node.platform.os == linux]
-  volumes:
-    - type: bind
-      source: /var/run/docker.sock
-      target: /var/run/docker.sock
-    - type: bind
-      source: /
-      target: /rootfs:ro
+  sematext:
+    image: 'sematext/sematext-agent-docker:latest'
+    environment:
+      - LOGSENE_TOKEN=$LOGSENE_TOKEN
+      - SPM_TOKEN=$SPM_TOKEN
+      - SPM_RECEIVER_URL=https://spm-receiver.eu.sematext.com/receiver/v1
+      - LOGSENE_RECEIVER_URL=https://logsene-receiver.eu.sematext.com
+      - EVENTS_RECEIVER_URL=https://event-receiver.eu.sematext.com
+      - affinity:container!=*sematext-agent*
+    cap_add:
+      - SYS_ADMIN
+    restart: always
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.platform.os == linux]
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: /
+        target: /rootfs:ro
 
 configs:
   elastic_config:
