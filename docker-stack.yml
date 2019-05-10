@@ -177,8 +177,6 @@ services:
         constraints:
           - node.role == manager
 
-    version: '3.2'
-
   sematext:
     image: 'sematext/sematext-agent-docker:latest'
     environment:
