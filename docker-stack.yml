@@ -13,7 +13,7 @@ services:
     volumes:
     - elastic-data:/usr/share/elasticsearch/data
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx512m -Xms256m"
     networks:
       - elk
     deploy:
