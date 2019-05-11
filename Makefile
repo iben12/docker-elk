@@ -1,6 +1,6 @@
 include .secret
 
-deploy: export-env
+deploy: export-env deploy-stack
 
 export-env:
 	export KIBANA_USER=${KIBANA_USER}
